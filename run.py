@@ -74,10 +74,19 @@ if __name__ == "__main__":
     """Reading the images"""
     # always convert image to the 3 channel BGR color image.
     image = cv.imread(path, cv.IMREAD_COLOR)
-    print(image.shape)
+    # print(image.shape)
     #  now the image is an numpy array
     # i.e why the _ is given as there are more parameters in shape
     # save for later
     height, width, _ = image.shape
     resized_image = cv.resize(image, (H, W))
+    # print(resized_image.shape)
+    # Normalization of the resized_image
+    # now the range of the pixel value is btw 0 and 1 as is divided by the max pixel value
+    resized_image = resized_image / 255.0
+    resized_image = resized_image.astype(np.float32)
+    # adding th expanded dimension to the axis
+    resized_image = np.expand_dims(resized_image, axis=0)
+    #  (1,512,512,3) this is because this is a single image and we give the numpy array into the model by batches
+    #  so we are giving it as one batch
     print(resized_image.shape)
