@@ -72,3 +72,8 @@ if __name__ == "__main__":
         print(image_name)
 
     """Reading the images"""
+    # always convert image to the 3 channel BGR color image.
+    image = cv.imread(path, cv.IMREAD_COLOR)
+    #  now the image is an numpy array
+    height, width = image.shape
+    resized_image = cv.resize(image, (H, W))
