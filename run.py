@@ -74,6 +74,10 @@ if __name__ == "__main__":
     """Reading the images"""
     # always convert image to the 3 channel BGR color image.
     image = cv.imread(path, cv.IMREAD_COLOR)
+    print(image.shape)
     #  now the image is an numpy array
-    height, width = image.shape
+    # i.e why the _ is given as there are more parameters in shape
+    # save for later
+    height, width, _ = image.shape
     resized_image = cv.resize(image, (H, W))
+    print(resized_image.shape)
