@@ -111,4 +111,29 @@ if __name__ == "__main__":
     predicted_mask = predicted_mask > 0.5
     # predicted maks contains range of 0 and 1
     # multiplying it by 255 to get the range of 0 to 255
-    cv.imwrite(f"remove_background/{image_name}.png", predicted_mask * 255)
+    """saving the predicted mask"""
+    # cv.imwrite(f"remove_background/{image_name}.png", predicted_mask * 255)
+
+    # Need two kinds of masks
+    """Photo mask"""
+    # photo_mask is the main object
+    photo_mask = predicted_mask
+    background_mask = np.abs(1 - predicted_mask)
+    # cv.imwrite(f"remove_background/{image_name}.png", background_mask * 255)
+    # reversed the color
+    #  photot mask contain the mask for the main object and the background mask contain the mask for the background
+    """why not * 255"""
+    # we cant see the difference btw the 0 and 1 but we can see the diff os the 0 and 255
+    # here by multiplying - because the background ,ask or the photo mask is for the array contain the values 0 or 1
+    # pixel values multiplied by zero became 0 and the others are multiplied by  so the object remain the same in the result
+
+    # cv.imwrite(f"remove_background/{image_name}.png", image * photo_mask)
+    # seperating the background removing the object
+    # cv.imwrite(f"remove_background/{image_name}.png", image * background_mask)
+
+    """Custom background (color)"""
+
+    masked_image = image * photo_mask
+    #  to have a custom color there is need of 3 color channels
+    #  checking the channel from shape
+    print(masked_image.shape)
