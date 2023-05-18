@@ -56,3 +56,19 @@ if __name__ == "__main__":
         {"iou": iou, "dice_coef": dice_coeff, "dice_loss": dice_loss}
     ):
         model = tf.keras.models.load_model("silhouetteX.h5")
+
+    """Summary of the model"""
+    # from the summary we can see that the imput is a 512,512,3 channel image
+    # and the output is a 512,512,1 channel (binary mask)
+    # model.summary()
+
+    """loading the images/dataset to the model"""
+    image_data = glob("images\*")
+    print(image_data)
+
+    for path in tqdm(image_data, total=len(image_data)):
+        """extracting the name of the images"""
+        image_name = path.split("\\")[-1].split(".")[0]
+        print(image_name)
+
+    """Reading the images"""
