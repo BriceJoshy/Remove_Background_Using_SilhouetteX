@@ -89,4 +89,19 @@ if __name__ == "__main__":
     resized_image = np.expand_dims(resized_image, axis=0)
     #  (1,512,512,3) this is because this is a single image and we give the numpy array into the model by batches
     #  so we are giving it as one batch
-    print(resized_image.shape)
+    # print(resized_image.shape)
+
+    """Making a Prediction"""
+    # because we have given one image as an input
+    # ouput would also be one mask not more than that will be predicted by the model
+    predicted_image = model.predict(resized_image)[0]
+    # index 0 so the shape be came as below
+    # (1, 512, 512, 1) as it is an binary mask
+    # print(predicted_image.shape)
+    #  this is the mask
+    #  we resize the prdicted mask is resized to 512,512
+    #  we make sure that the the size of the prediction mask is same as the origianl image
+    predicted_image = cv.resize(predicted_image, (width, height))
+    #  now we are going to expand its dimentions foe the last axis
+    predicted_image = np.expand_dims(predicted_image, axis=1)
+    print(predicted_image.shape)
