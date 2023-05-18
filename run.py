@@ -107,6 +107,8 @@ if __name__ == "__main__":
     predicted_mask = np.expand_dims(predicted_mask, axis=-1)
     # print(predicted_image.shape)
 
-    #  predicted maks contains range of 0 and 1
+    # creaing the threshold
+    predicted_mask = predicted_mask > 0.5
+    # predicted maks contains range of 0 and 1
     # multiplying it by 255 to get the range of 0 to 255
     cv.imwrite(f"remove_background/{image_name}.png", predicted_mask * 255)
