@@ -154,9 +154,7 @@ if __name__ == "__main__":
         cv.imwrite(f"removed_background_images/{image_name}.png", final_image)
 
         """Cropping the image from drawn contour"""
-
-    for path in tqdm(new_data, total=len(new_data)):
-        copy_image = cv.imread(path)
+        copy_image = cv.imread("removed_background_image/")
 
         grey_image = cv.cvtColor(copy_image, cv.COLOR_BGR2GRAY)
         # cv.imshow("Grey image", grey_image)
@@ -172,7 +170,7 @@ if __name__ == "__main__":
         contours, heirarchy = cv.findContours(
             dialated, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE
         )
-        print(str(len(contours)))
+        # print(str(len(contours)))
         x, y, w, h = cv.boundingRect(contours[-1])
         # for contour in range(len(contours)):
         #     #  draw current contours
@@ -183,5 +181,5 @@ if __name__ == "__main__":
         rectangle = cv.rectangle(copy_image, (x, y), (x + w, y + h), (0, 255, 0), 1)
 
         # cv.imshow("Rectangle", image)
-        cropped_image = copy_image[y : y + h, x : x + w]
+        cropped_image = final_image[y : y + h, x : x + w]
         cv.imwrite(f"cropped_images/{image_name}.png", cropped_image)
