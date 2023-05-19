@@ -48,7 +48,7 @@ if __name__ == "__main__":
     tf.random.set_seed(42)
 
     """Creating the directory for storing the files"""
-    create_directory("remove_background")
+    create_directory("removed_background_images")
 
     """Loading the model S_X"""
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     # i.e why the _ is given as there are more parameters in shape
     # save for later
     height, width, _ = image.shape
-    resized_image = cv.resize(image, (H, W))
+    resized_image = cv.resize(image, (W, H))
     # print(resized_image.shape)
     # Normalization of the resized_image
     # now the range of the pixel value is btw 0 and 1 as is divided by the max pixel value
@@ -119,6 +119,7 @@ if __name__ == "__main__":
     # photo_mask is the main object
     photo_mask = predicted_mask
     background_mask = np.abs(1 - predicted_mask)
+    print(background_mask.shape)
     # cv.imwrite(f"remove_background/{image_name}.png", background_mask * 255)
     # reversed the color
     #  photot mask contain the mask for the main object and the background mask contain the mask for the background
@@ -136,4 +137,12 @@ if __name__ == "__main__":
     masked_image = image * photo_mask
     #  to have a custom color there is need of 3 color channels
     #  checking the channel from shape
-    print(masked_image.shape)
+    # print(masked_image.shape)
+
+    # stacking the 3 values of top of each other in the last axis
+    background_mask = np.concatenate(
+        [background_mask, background_mask, background_mask], axis=-1
+    )
+    background_mask = background_mask * [255, 255, 255]
+    final_image = masked_image + background_mask
+    cv.imwrite(f"remove_background/{image_name}.png", final_image)
