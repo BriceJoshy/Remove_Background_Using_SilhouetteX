@@ -150,3 +150,35 @@ if __name__ == "__main__":
     background_mask = background_mask * [255, 255, 255]
     final_image = masked_image + background_mask
     cv.imwrite(f"removed_background_images/{image_name}.png", final_image)
+
+    """Cropping the image from drawn contour"""
+
+    copy_image = cv.imread("removed_background_images/XRVOS_myn_10653722_1100x1100.png")
+
+    grey_image = cv.cvtColor(copy_image, cv.COLOR_BGR2GRAY)
+    # cv.imshow("Grey image", grey_image)
+
+    ret, threshold = cv.threshold(grey_image, 1, 255, cv.THRESH_OTSU)
+    # cv.imshow("Threshold image", threshold)
+
+    edge = cv.Canny(threshold, 400, 400)
+    # cv.imshow("edges", edge)
+
+    dialated = cv.dilate(edge, (1, 1), iterations=3)
+    # cv.imshow("Dialated image", dialated)
+    contours, heirarchy = cv.findContours(
+        dialated, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE
+    )
+    print(str(len(contours)))
+    x, y, w, h = cv.boundingRect(contours[-1])
+    # for contour in range(len(contours)):
+    #     #  draw current contours
+    #     cv.drawContours(image, contours, contour, (0, 255, 0), 3)
+    #     cv.imshow("Rectangle", image)
+    #     cv.waitKey(0)
+
+    rectangle = cv.rectangle(copy_image, (x, y), (x + w, y + h), (0, 255, 0), 1)
+
+    # cv.imshow("Rectangle", image)
+    cropped_image = copy_image[y : y + h, x : x + w]
+    cv.imwrite(f"removed_background_images/{image_name}.jpg", cropped_image)
