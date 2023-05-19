@@ -145,4 +145,4 @@ if __name__ == "__main__":
     )
     background_mask = background_mask * [255, 255, 255]
     final_image = masked_image + background_mask
-    cv.imwrite(f"remove_background/{image_name}.png", final_image)
+    cv.imwrite(f"removed_background_image/{image_name}.png", final_image)
