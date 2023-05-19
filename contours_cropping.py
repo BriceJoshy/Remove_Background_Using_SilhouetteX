@@ -11,7 +11,11 @@ cv.imshow("Grey image", grey_image)
 ret, threshold = cv.threshold(grey_image, 1, 255, cv.THRESH_OTSU)
 cv.imshow("Threshold image", threshold)
 
-edge = cv.Canny(threshold, 400, 400)
+filter = np.array([[-1, -3, -1], [-1, 9, -1], [-1, -1, -1]])
+sharpedned = cv.filter2D(threshold, -1, filter)
+cv.imshow("sharp image", sharpedned)
+
+edge = cv.Canny(sharpedned, 400, 400)
 cv.imshow("edges", edge)
 
 dialated = cv.dilate(edge, (1, 1), iterations=10)

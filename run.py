@@ -154,7 +154,8 @@ if __name__ == "__main__":
         cv.imwrite(f"removed_background_images/{image_name}.png", final_image)
 
         """Cropping the image from drawn contour"""
-        copy_image = cv.imread("removed_background_image/")
+    for path_2 in tqdm(new_data, total=len(new_data)):
+        copy_image = cv.imread(path_2)
 
         grey_image = cv.cvtColor(copy_image, cv.COLOR_BGR2GRAY)
         # cv.imshow("Grey image", grey_image)
