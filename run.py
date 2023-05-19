@@ -84,7 +84,11 @@ if __name__ == "__main__":
     # Normalization of the resized_image
     # now the range of the pixel value is btw 0 and 1 as is divided by the max pixel value
     resized_image = resized_image / 255.0
+    # print(resized_image.shape)
+    """Explanation for the type conversion"""
+    #  https://stackoverflow.com/questions/59986353/why-do-i-have-to-convert-uint8-into-float32
     resized_image = resized_image.astype(np.float32)
+    # print(resized_image.shape)
     # adding th expanded dimension to the axis
     resized_image = np.expand_dims(resized_image, axis=0)
     #  (1,512,512,3) this is because this is a single image and we give the numpy array into the model by batches
@@ -102,10 +106,10 @@ if __name__ == "__main__":
     #  we resize the prdicted mask is resized to 512,512
     #  we make sure that the the size of the prediction mask is same as the origianl image
     predicted_mask = cv.resize(predicted_mask, (width, height))
-    # print(predicted_image.shape)
+    print(predicted_mask.shape)
     #  now we are going to expand its dimentions for the last axis
     predicted_mask = np.expand_dims(predicted_mask, axis=-1)
-    # print(predicted_image.shape)
+    print(predicted_mask.shape)
 
     # creaing the threshold
     predicted_mask = predicted_mask > 0.5
@@ -119,7 +123,7 @@ if __name__ == "__main__":
     # photo_mask is the main object
     photo_mask = predicted_mask
     background_mask = np.abs(1 - predicted_mask)
-    print(background_mask.shape)
+    # print(background_mask.shape)
     # cv.imwrite(f"remove_background/{image_name}.png", background_mask * 255)
     # reversed the color
     #  photot mask contain the mask for the main object and the background mask contain the mask for the background
