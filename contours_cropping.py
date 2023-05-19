@@ -2,19 +2,19 @@ import cv2 as cv
 from cv2 import LINE_AA
 import numpy as np
 
-image = cv.imread("removed_background_images/XRVOS_myn_10653722_1100x1100.png")
+image = cv.imread("removed_background_images/top_2.png")
 cv.imshow("Originalimage", image)
 
 grey_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-# cv.imshow("Grey image", grey_image)
+cv.imshow("Grey image", grey_image)
 
 ret, threshold = cv.threshold(grey_image, 1, 255, cv.THRESH_OTSU)
-# cv.imshow("Threshold image", threshold)
+cv.imshow("Threshold image", threshold)
 
 edge = cv.Canny(threshold, 400, 400)
 cv.imshow("edges", edge)
 
-dialated = cv.dilate(edge, (1, 1), iterations=3)
+dialated = cv.dilate(edge, (1, 1), iterations=10)
 cv.imshow("Dialated image", dialated)
 contours, heirarchy = cv.findContours(dialated, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 print(str(len(contours)))
