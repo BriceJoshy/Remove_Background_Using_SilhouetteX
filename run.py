@@ -154,33 +154,41 @@ if __name__ == "__main__":
         cv.imwrite(f"removed_background_images/{image_name}.png", final_image)
 
         """Cropping the image from drawn contour"""
-    for path_2 in tqdm(new_data, total=len(new_data)):
-        copy_image = cv.imread(path_2)
 
-        grey_image = cv.cvtColor(copy_image, cv.COLOR_BGR2GRAY)
-        # cv.imshow("Grey image", grey_image)
+    #     cv.waitKey(1000)
+    #     print(len(new_data))
+    # for path_2 in tqdm(new_data, total=len(new_data)):
+    #     rmbg_image_name = path_2.split("\\")[-1].split(".")[0]
+    #     print(rmbg_image_name)
 
-        ret, threshold = cv.threshold(grey_image, 1, 255, cv.THRESH_OTSU)
-        # cv.imshow("Threshold image", threshold)
+    #     """Reading the images"""
+    #     # always convert image to the 3 channel BGR color image.
+    #     copy_image = cv.imread(path_2, cv.IMREAD_COLOR)
 
-        edge = cv.Canny(threshold, 400, 400)
-        # cv.imshow("edges", edge)
+    #     grey_image = cv.cvtColor(copy_image, cv.COLOR_BGR2GRAY)
+    #     # cv.imshow("Grey image", grey_image)
 
-        dialated = cv.dilate(edge, (1, 1), iterations=3)
-        # cv.imshow("Dialated image", dialated)
-        contours, heirarchy = cv.findContours(
-            dialated, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE
-        )
-        # print(str(len(contours)))
-        x, y, w, h = cv.boundingRect(contours[-1])
-        # for contour in range(len(contours)):
-        #     #  draw current contours
-        #     cv.drawContours(image, contours, contour, (0, 255, 0), 3)
-        #     cv.imshow("Rectangle", image)
-        #     cv.waitKey(0)
+    #     ret, threshold = cv.threshold(grey_image, 1, 255, cv.THRESH_OTSU)
+    #     # cv.imshow("Threshold image", threshold)
 
-        rectangle = cv.rectangle(copy_image, (x, y), (x + w, y + h), (0, 255, 0), 1)
+    #     edge = cv.Canny(threshold, 400, 400)
+    #     # cv.imshow("edges", edge)
 
-        # cv.imshow("Rectangle", image)
-        cropped_image = final_image[y : y + h, x : x + w]
-        cv.imwrite(f"cropped_images/{image_name}.png", cropped_image)
+    #     dialated = cv.dilate(edge, (1, 1), iterations=3)
+    #     # cv.imshow("Dialated image", dialated)
+    #     contours, heirarchy = cv.findContours(
+    #         dialated, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE
+    #     )
+    #     # print(str(len(contours)))
+    #     x, y, w, h = cv.boundingRect(contours[-1])
+    #     # for contour in range(len(contours)):
+    #     #     #  draw current contours
+    #     #     cv.drawContours(image, contours, contour, (0, 255, 0), 3)
+    #     #     cv.imshow("Rectangle", image)
+    #     #     cv.waitKey(0)
+
+    #     rectangle = cv.rectangle(copy_image, (x, y), (x + w, y + h), (0, 255, 0), 1)
+
+    #     # cv.imshow("Rectangle", image)
+    #     cropped_image = final_image[y : y + h, x : x + w]
+    #     cv.imwrite(f"cropped_images/{rmbg_image_name}.png", cropped_image)
