@@ -2,8 +2,6 @@
 # background:0
 # foreground:1
 """Using the deeplabv3+ model silhoutteX.h5"""
-from PIL import Image
-from PIL import ImageFilter
 
 import os
 
@@ -77,8 +75,10 @@ if __name__ == "__main__":
 
         """Reading the images"""
         # always convert image to the 3 channel BGR color image.
-        image = Image.open(path)
-        sharpen = image.filter(ImageFilter.EDGE_ENHANCE)
+        image = cv.imread(path, cv.IMREAD_COLOR)
+        filter = np.array([[-1, -1, -1], [-1, 10, -1], [-1, -1, -1]])
+        sharpedned_1 = cv.filter2D(image, -1, filter)
+
         # dialated = cv.dilate(sharpedned_1, (1, 1), iterations=1)
         # cv.imshow("Dialated image", dialated)
         # cv.imshow("sharp image", sharpedned_2)
@@ -86,8 +86,8 @@ if __name__ == "__main__":
         #  now the image is an numpy array
         # i.e why the _ is given as there are more parameters in shape
         # save for later
-        height, width, _ = sharpen.shape
-        resized_image = cv.resize(sharpen, (W, H))
+        height, width, _ = sharpedned_1.shape
+        resized_image = cv.resize(sharpedned_1, (W, H))
         # print(resized_image.shape)
         # Normalization of the resized_image
         # now the range of the pixel value is btw 0 and 1 as is divided by the max pixel value
