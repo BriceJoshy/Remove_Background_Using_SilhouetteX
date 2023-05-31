@@ -76,12 +76,15 @@ if __name__ == "__main__":
         """Reading the images"""
         # always convert image to the 3 channel BGR color image.
         image = cv.imread(path, cv.IMREAD_COLOR)
+        filter = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
+        sharpedned_1 = cv.filter2D(image, -1, filter)
+        # cv.imshow("sharp image", sharpedned_2)
         # print(image.shape)
         #  now the image is an numpy array
         # i.e why the _ is given as there are more parameters in shape
         # save for later
-        height, width, _ = image.shape
-        resized_image = cv.resize(image, (W, H))
+        height, width, _ = sharpedned_1.shape
+        resized_image = cv.resize(sharpedned_1, (W, H))
         # print(resized_image.shape)
         # Normalization of the resized_image
         # now the range of the pixel value is btw 0 and 1 as is divided by the max pixel value

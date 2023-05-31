@@ -2,7 +2,7 @@ import cv2 as cv
 from cv2 import LINE_AA
 import numpy as np
 
-image = cv.imread("removed_background_images/download.jpeg")
+image = cv.imread("removed_background_images/img.jpeg")
 cv.imshow("Originalimage", image)
 
 grey_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
