@@ -10,10 +10,7 @@ image.show()
 filter = image.filter(ImageFilter.EDGE_ENHANCE_MORE)
 filter.show()
 
-ret, threshold = cv.threshold(filter, 1, 255, cv.THRESH_OTSU)
-cv.imshow("Threshold image", threshold)
-
-edges = filter.filter(ImageFilter.FIND_EDGES)
+edges = filter.filter(ImageFilter.UnsharpMask)
 edges.show()
 
 cv.waitKey(0)
