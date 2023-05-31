@@ -1,13 +1,14 @@
 import cv2 as cv
 import numpy as np
+from PIL import Image
+from PIL import ImageFilter
 
 
-image = cv.imread("images/upscale.jpg")
-cv.imshow("Original_image", image)
+image = Image.open("images/img.jpeg")
+image.show()
 
-filter = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
-sharpedned = cv.filter2D(image, -1, filter)
-cv.imshow("sharp image", sharpedned)
+filter = image.filter(ImageFilter.EDGE_ENHANCE)
+filter.show()
 
 cv.waitKey(0)
 cv.destroyAllWindows()
