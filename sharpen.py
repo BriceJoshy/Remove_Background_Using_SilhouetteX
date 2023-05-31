@@ -10,5 +10,8 @@ image.show()
 filter = image.filter(ImageFilter.EDGE_ENHANCE_MORE)
 filter.show()
 
+edges = filter.filter(ImageFilter.FIND_EDGES)
+edges.show()
+
 cv.waitKey(0)
 cv.destroyAllWindows()
