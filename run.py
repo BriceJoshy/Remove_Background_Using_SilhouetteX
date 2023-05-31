@@ -86,7 +86,7 @@ if __name__ == "__main__":
         #  now the image is an numpy array
         # i.e why the _ is given as there are more parameters in shape
         # save for later
-        height, width, _ = image.shape
+        height, width, _ = sharpen.shape
         resized_image = cv.resize(sharpen, (W, H))
         # print(resized_image.shape)
         # Normalization of the resized_image
