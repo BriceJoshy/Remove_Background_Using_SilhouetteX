@@ -76,7 +76,7 @@ if __name__ == "__main__":
         """Reading the images"""
         # always convert image to the 3 channel BGR color image.
         image = cv.imread(path, cv.IMREAD_COLOR)
-        filter = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
+        filter = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
         sharpedned_1 = cv.filter2D(image, -1, filter)
 
         # dialated = cv.dilate(sharpedned_1, (1, 1), iterations=1)
