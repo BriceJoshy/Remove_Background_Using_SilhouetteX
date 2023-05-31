@@ -7,7 +7,7 @@ from PIL import ImageFilter
 image = Image.open("images/img.jpeg")
 image.show()
 
-filter = image.filter(ImageFilter.EDGE_ENHANCE)
+filter = image.filter(ImageFilter.EDGE_ENHANCE_MORE)
 filter.show()
 
 cv.waitKey(0)
